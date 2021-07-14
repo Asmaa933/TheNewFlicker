@@ -19,6 +19,12 @@
 		65F11421AB4A2F150D8631C2 /* Pods_TheNewFlickrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27521173E44FA8F60CB04CCB /* Pods_TheNewFlickrTests.framework */; };
 		737913696C5681CC3713D71F /* Pods_TheNewFlickr_TheNewFlickrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3AACF1D9546BAD6E5B26AD3 /* Pods_TheNewFlickr_TheNewFlickrUITests.framework */; };
 		76412C7C269F8429006E788A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7B269F8429006E788A /* Constants.swift */; };
+		76412C7E269F92AA006E788A /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7D269F92AA006E788A /* SearchModel.swift */; };
+		76412C80269F953A006E788A /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7F269F9539006E788A /* ApiHandler.swift */; };
+		76412C82269F9705006E788A /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C81269F9705006E788A /* ErrorHandler.swift */; };
+		76412C85269F9880006E788A /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C84269F987F006E788A /* NetworkMonitor.swift */; };
+		76412C88269F9D3C006E788A /* MockApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C87269F9D3C006E788A /* MockApiHandler.swift */; };
+		76412C8A269FA469006E788A /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C89269FA469006E788A /* Responses.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +66,12 @@
 		62B9407358D38864DE68FB98 /* Pods_TheNewFlickr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNewFlickr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7387C1B6931C09B9A9BE0B6F /* Pods-TheNewFlickrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickrTests.release.xcconfig"; path = "Target Support Files/Pods-TheNewFlickrTests/Pods-TheNewFlickrTests.release.xcconfig"; sourceTree = "<group>"; };
 		76412C7B269F8429006E788A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		76412C7D269F92AA006E788A /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		76412C7F269F9539006E788A /* ApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandler.swift; sourceTree = "<group>"; };
+		76412C81269F9705006E788A /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		76412C84269F987F006E788A /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		76412C87269F9D3C006E788A /* MockApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiHandler.swift; sourceTree = "<group>"; };
+		76412C89269FA469006E788A /* Responses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responses.swift; sourceTree = "<group>"; };
 		B3AACF1D9546BAD6E5B26AD3 /* Pods_TheNewFlickr_TheNewFlickrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNewFlickr_TheNewFlickrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFC420B33F9FC76BE59A8AD1 /* Pods-TheNewFlickr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.release.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.release.xcconfig"; sourceTree = "<group>"; };
 		F48994D2BEB1612AF7C63FF9 /* Pods-TheNewFlickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.debug.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +144,7 @@
 		39482BE4269DBEFD00CE3789 /* TheNewFlickrTests */ = {
 			isa = PBXGroup;
 			children = (
+				76412C86269F9D27006E788A /* Mock */,
 				39482BE5269DBEFD00CE3789 /* TheNewFlickrTests.swift */,
 				39482BE7269DBEFD00CE3789 /* Info.plist */,
 			);
@@ -201,6 +214,7 @@
 		76412C75269F8351006E788A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				76412C7D269F92AA006E788A /* SearchModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,6 +232,7 @@
 			children = (
 				76412C78269F83D2006E788A /* Constants */,
 				76412C79269F83DD006E788A /* Extensions */,
+				76412C83269F9833006E788A /* Helper */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -240,8 +255,27 @@
 		76412C7A269F83E9006E788A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				76412C7F269F9539006E788A /* ApiHandler.swift */,
+				76412C81269F9705006E788A /* ErrorHandler.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		76412C83269F9833006E788A /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				76412C84269F987F006E788A /* NetworkMonitor.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		76412C86269F9D27006E788A /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				76412C87269F9D3C006E788A /* MockApiHandler.swift */,
+				76412C89269FA469006E788A /* Responses.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		95F264D018695261FA16A892 /* Pods */ = {
@@ -506,8 +540,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				39482BD3269DBEFA00CE3789 /* ViewController.swift in Sources */,
+				76412C85269F9880006E788A /* NetworkMonitor.swift in Sources */,
+				76412C82269F9705006E788A /* ErrorHandler.swift in Sources */,
+				76412C80269F953A006E788A /* ApiHandler.swift in Sources */,
 				39482BCF269DBEFA00CE3789 /* AppDelegate.swift in Sources */,
 				39482BD1269DBEFA00CE3789 /* SceneDelegate.swift in Sources */,
+				76412C7E269F92AA006E788A /* SearchModel.swift in Sources */,
 				76412C7C269F8429006E788A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,7 +554,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76412C8A269FA469006E788A /* Responses.swift in Sources */,
 				39482BE6269DBEFD00CE3789 /* TheNewFlickrTests.swift in Sources */,
+				76412C88269F9D3C006E788A /* MockApiHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
