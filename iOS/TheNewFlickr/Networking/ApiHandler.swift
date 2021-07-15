@@ -10,18 +10,18 @@ import Alamofire
 import PromiseKit
 
 protocol ApiHandlerProtocol {
-    func getPhotosSearch(page: Int) -> Promise<SearchModel>
+    func fetchData<T: Decodable>(request: Requestable, mappingClass: T.Type) -> Promise<T>
 }
 
 class ApiHandler: ApiHandlerProtocol {
-    func getPhotosSearch(page: Int) -> Promise<SearchModel> {
-        return Promise<SearchModel> { seal in
+    func fetchData<T: Decodable>(request: Requestable, mappingClass: T.Type) -> Promise<T> {
+        return Promise<T> { seal in
             if NetworkMonitor.shared.netOn {
                 AF.request(APIInfo.url,
-                           method: .get,
-                           parameters: APIInfo.getSearchParams(page: page),
-                           encoding: URLEncoding.default,
-                           headers: nil)
+                           method: request.method,
+                           parameters: request.parameters,
+                           encoding: request.encoding,
+                           headers: request.headers)
                     .responseJSON { response in
                         switch response.result {
                         case .success:
@@ -30,7 +30,7 @@ class ApiHandler: ApiHandlerProtocol {
                                 return
                             }
                             do {
-                                let search = try JSONDecoder().decode(SearchModel.self, from: jsonResponse)
+                                let search = try JSONDecoder().decode(T.self, from: jsonResponse)
                                 seal.fulfill(search)
                             } catch (let error){
                                 debugPrint("Error in decoding ** \n \(error.localizedDescription.description)")
