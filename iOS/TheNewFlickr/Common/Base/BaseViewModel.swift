@@ -28,7 +28,7 @@ class BaseViewModel: NSObject {
     var checkInternetConnection: (() -> ())?
     
     func startRequest<M: Codable>(request: Requestable, mappingClass: M.Type,successCompletion: @escaping((M?) -> Void), showLoading: Bool = true) {
-        
+    
         if showLoading {
             state = .loading
         }

@@ -12,13 +12,23 @@ struct APIInfo {
     static let key = "94b0a1ad9d4f1aebf9f2f2c006fb4c65"
     static let secret = "c21744829fca03e7"
     
-    static func getSearchParams(page: Int) -> [String: Any] {
+    static func getSearchParams(page: Int) -> [String: String] {
         return ["method": "flickr.photos.search",
                 "api_key": key,
                 "text": "cat",
                 "format": "json",
                 "nojsoncallback": "1",
                 "page": page.description
+        ]
+    }
+    
+    static func getSizes(photoId: String) -> [String: String] {
+        return ["method": "flickr.photos.getSizes",
+                "api_key": key,
+                "photo_id": photoId,
+                "text": "cat",
+                "format": "json",
+                "nojsoncallback": "1"
         ]
     }
 }

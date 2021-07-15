@@ -18,7 +18,7 @@
 		39482BF1269DBEFD00CE3789 /* TheNewFlickrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39482BF0269DBEFD00CE3789 /* TheNewFlickrUITests.swift */; };
 		65F11421AB4A2F150D8631C2 /* Pods_TheNewFlickrTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27521173E44FA8F60CB04CCB /* Pods_TheNewFlickrTests.framework */; };
 		737913696C5681CC3713D71F /* Pods_TheNewFlickr_TheNewFlickrUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3AACF1D9546BAD6E5B26AD3 /* Pods_TheNewFlickr_TheNewFlickrUITests.framework */; };
-		76412C7C269F8429006E788A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7B269F8429006E788A /* Constants.swift */; };
+		76412C7C269F8429006E788A /* APIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7B269F8429006E788A /* APIInfo.swift */; };
 		76412C7E269F92AA006E788A /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7D269F92AA006E788A /* SearchModel.swift */; };
 		76412C80269F953A006E788A /* ApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C7F269F9539006E788A /* ApiHandler.swift */; };
 		76412C82269F9705006E788A /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C81269F9705006E788A /* ErrorHandler.swift */; };
@@ -69,7 +69,7 @@
 		625D00C1E225691FDA1F9E38 /* Pods-TheNewFlickr-TheNewFlickrUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr-TheNewFlickrUITests.debug.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr-TheNewFlickrUITests/Pods-TheNewFlickr-TheNewFlickrUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		62B9407358D38864DE68FB98 /* Pods_TheNewFlickr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNewFlickr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7387C1B6931C09B9A9BE0B6F /* Pods-TheNewFlickrTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickrTests.release.xcconfig"; path = "Target Support Files/Pods-TheNewFlickrTests/Pods-TheNewFlickrTests.release.xcconfig"; sourceTree = "<group>"; };
-		76412C7B269F8429006E788A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		76412C7B269F8429006E788A /* APIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIInfo.swift; sourceTree = "<group>"; };
 		76412C7D269F92AA006E788A /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		76412C7F269F9539006E788A /* ApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandler.swift; sourceTree = "<group>"; };
 		76412C81269F9705006E788A /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 		76412C78269F83D2006E788A /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				76412C7B269F8429006E788A /* Constants.swift */,
+				76412C7B269F8429006E788A /* APIInfo.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -570,7 +570,7 @@
 				76412C93269FB60C006E788A /* NetworkingApi.swift in Sources */,
 				76412C7E269F92AA006E788A /* SearchModel.swift in Sources */,
 				76412C91269FB54B006E788A /* Requestable.swift in Sources */,
-				76412C7C269F8429006E788A /* Constants.swift in Sources */,
+				76412C7C269F8429006E788A /* APIInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
