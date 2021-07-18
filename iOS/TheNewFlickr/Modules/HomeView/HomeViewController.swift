@@ -27,14 +27,22 @@ fileprivate extension HomeViewController {
     
     func setupViewModel() {
         setupViewModel(viewModel: viewModel)
+        
         viewModel.reloadCollectionView = {[weak self] in
             self?.collectionView.reloadData()
         }
+        
+        viewModel.didSelectPhoto = {photo in
+            print(photo.title ?? "")
+        }
+        
         viewModel.getSearchList()
     }
     
     func setupView() {
         registerCells()
+        setupSearchBar()
+        addTapGestureToView()
     }
     
     func registerCells() {
@@ -42,9 +50,30 @@ fileprivate extension HomeViewController {
         collectionView.registerCellNib(cellClass: ActivityIndicatorCell.self)
     }
     
+    func setupSearchBar() {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+    }
+    
+    func addTapGestureToView() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func endEditing() {
+        view.endEditing(true)
+    }
+    
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectPhoto(at: indexPath.row)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let _ = cell as? ActivityIndicatorCell {
             viewModel.getSearchList()
@@ -55,20 +84,22 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.hasMoreItems {
-            return viewModel.searchArray.count + 1
+        
+        if viewModel.hasMoreItems && !viewModel.isSearch {
+            return viewModel.getPhotosCount() + 1
         } else {
-            return viewModel.searchArray.count
+            return viewModel.getPhotosCount()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if viewModel.hasMoreItems && indexPath.row == viewModel.searchArray.count {
+        
+        if viewModel.hasMoreItems && indexPath.row == viewModel.getPhotosCount() && !viewModel.isSearch {
             let cell = collectionView.dequeue(indexPath: indexPath) as ActivityIndicatorCell
             return cell
         } else {
             let cell = collectionView.dequeue(indexPath: indexPath) as HomeCell
-            cell.configureCell(photo: viewModel.searchArray[indexPath.row])
+            cell.configureCell(photo: viewModel.getPhoto(at: indexPath.row))
             return cell
         }
     }
@@ -78,10 +109,26 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        if viewModel.hasMoreItems && indexPath.row == viewModel.searchArray.count {
+        if viewModel.hasMoreItems && indexPath.row == viewModel.getPhotosCount() && !viewModel.isSearch {
             return CGSize(width: width, height: 50)
         }else {
             return CGSize(width: width / 2 , height: 130)
         }
     }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchInArray(searchText: searchText)
+    }
+    
 }
