@@ -9,6 +9,7 @@ import Foundation
 
 struct APIInfo {
     static let url = "https://www.flickr.com/services/rest/"
+    static let imageURL = "https://live.staticflickr.com/"
     static let key = "94b0a1ad9d4f1aebf9f2f2c006fb4c65"
     static let secret = "c21744829fca03e7"
     

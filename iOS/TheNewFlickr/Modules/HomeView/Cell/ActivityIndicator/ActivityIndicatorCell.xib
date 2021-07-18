@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ActivityIndicatorCell" customModule="TheNewFlickr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="197" height="144"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="197" height="144"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lMx-OQ-I5a">
+                        <rect key="frame" x="0.0" y="0.0" width="197" height="144"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="hzh-oA-6AR">
+                                <rect key="frame" x="88.5" y="62" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.56904578210000001" blue="0.57461684940000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hzh-oA-6AR" firstAttribute="centerX" secondItem="lMx-OQ-I5a" secondAttribute="centerX" id="Sgg-5Y-7TT"/>
+                            <constraint firstItem="hzh-oA-6AR" firstAttribute="centerY" secondItem="lMx-OQ-I5a" secondAttribute="centerY" id="UOA-WD-NRo"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="lMx-OQ-I5a" secondAttribute="trailing" id="5g7-Xt-Mlc"/>
+                <constraint firstItem="lMx-OQ-I5a" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Aeo-dm-ctx"/>
+                <constraint firstItem="lMx-OQ-I5a" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Lam-t1-Hvc"/>
+                <constraint firstAttribute="bottom" secondItem="lMx-OQ-I5a" secondAttribute="bottom" id="zsD-J0-2w3"/>
+            </constraints>
+            <size key="customSize" width="197" height="144"/>
+            <point key="canvasLocation" x="125.36231884057972" y="95.089285714285708"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
