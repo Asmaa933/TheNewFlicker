@@ -21,4 +21,42 @@ extension UICollectionView {
         return cell
     }
     
+    func setEmptyView(with image: UIImage,title: String) {
+        let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
+        let imageView = UIImageView(image: image)
+        let titleLabel = UILabel()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = #colorLiteral(red: 0.7254901961, green: 0.7176470588, blue: 0.7333333333, alpha: 1)
+        titleLabel.text = title
+        emptyView.addSubview(imageView)
+        emptyView.addSubview(titleLabel)
+        NSLayoutConstraint.activate([
+            imageView.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor, constant: -10),
+            imageView.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 150),
+            imageView.widthAnchor.constraint(equalToConstant: 150),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor)
+        ])
+        
+        UIView.animate(withDuration: 1, animations: {
+            imageView.transform = CGAffineTransform(rotationAngle: .pi / 10)
+        }, completion: { (finish) in
+            UIView.animate(withDuration: 1, animations: {
+                imageView.transform = CGAffineTransform(rotationAngle: -1 * (.pi / 10))
+            }, completion: { (finish) in
+                UIView.animate(withDuration: 1, animations: {
+                    imageView.transform = CGAffineTransform.identity
+                })
+            })
+        })
+        
+        self.backgroundView = emptyView
+    }
+    
+    func restore() {
+        self.backgroundView = nil
+    }
+    
 }

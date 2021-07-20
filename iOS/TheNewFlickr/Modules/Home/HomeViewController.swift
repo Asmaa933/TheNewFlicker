@@ -11,30 +11,38 @@ import PromiseKit
 
 class HomeViewController: BaseViewController {
     
+    //MARK: - Outlets
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var searchView: UIView!
     @IBOutlet private weak var cachedTableView: UITableView!
     
+    //MARK: - Variables
     private(set) var viewModel = HomeViewModel()
+    private let refreshControl = UIRefreshControl()
     
+    // MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
         setupView()
     }
     
+    // MARK: - Actions
     @IBAction private func clearAction(_ sender: UIButton) {
         viewModel.removeSearchHistory()
     }
 }
 
+//MARK: - Helper Methods
 fileprivate extension HomeViewController {
     
     func setupViewModel() {
         setupViewModel(viewModel: viewModel)
         
         viewModel.reloadCollectionView = {[weak self] in
+            self?.refreshControl.endRefreshing()
+            self?.collectionView.isHidden = false
             self?.collectionView.reloadData()
         }
         
@@ -53,6 +61,7 @@ fileprivate extension HomeViewController {
         registerCells()
         setupSearchBar()
         addTapGestureToView()
+        setupRefreshControl()
     }
     
     func registerCells() {
@@ -91,8 +100,18 @@ fileprivate extension HomeViewController {
         searchBar.showsCancelButton = false
     }
     
+    func setupRefreshControl() {
+        refreshControl.tintColor = .darkText
+        refreshControl.addTarget(self, action: #selector(reload), for: .valueChanged)
+        collectionView.addSubview(refreshControl)
+    }
+    
+    @objc func reload() {
+        viewModel.getSearchList()
+    }
 }
 
+//MARK: - UICollectionView Protocols Imp.
 extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -109,12 +128,16 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        if viewModel.hasMoreItems && !viewModel.isSearch {
-            return viewModel.getPhotosCount() + 1
+        var count = viewModel.getPhotosCount()
+        if count == 0 {
+            collectionView.setEmptyView(with: #imageLiteral(resourceName: "notfound"), title: "Nothing Found")
+        } else if viewModel.hasMoreItems && !viewModel.isSearch {
+            count += 1
+            collectionView.restore()
         } else {
-            return viewModel.getPhotosCount()
+            collectionView.restore()
         }
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -142,6 +165,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+//MARK: - UISearchBarDelegate Protocol Imp.
+
 extension HomeViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -156,7 +181,12 @@ extension HomeViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchView.isHidden = !searchText.isEmpty
+        if viewModel.cachedSearchArray.isEmpty {
+            searchView.isHidden = true
+        } else {
+            searchView.isHidden = !searchText.isEmpty
+        }
+        
         viewModel.searchInArray(searchText: searchText)
     }
     
@@ -164,6 +194,8 @@ extension HomeViewController: UISearchBarDelegate {
         viewModel.saveSearchResult(searchText: searchBar.text ?? "")
     }
 }
+
+//MARK: - UITableView Protocols Imp.
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
