@@ -7,7 +7,7 @@
 
 import Foundation
 
-let successResponse1: [String: Any] = [
+let searchResponse: [String: Any] = [
     "photos": [
         "page": 1,
         "pages": 2,

@@ -45,6 +45,7 @@
 		76AACF9526A6F33800502722 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9426A6F33800502722 /* DetailsViewModel.swift */; };
 		76AACF9726A7119C00502722 /* PhotoSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9626A7119C00502722 /* PhotoSizes.swift */; };
 		76AACF9B26A72FEC00502722 /* CustomDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9A26A72FEC00502722 /* CustomDropDown.swift */; };
+		76AACF9E26A7875500502722 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9D26A7875500502722 /* HomeViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		76AACF9426A6F33800502722 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		76AACF9626A7119C00502722 /* PhotoSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSizes.swift; sourceTree = "<group>"; };
 		76AACF9A26A72FEC00502722 /* CustomDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDown.swift; sourceTree = "<group>"; };
+		76AACF9D26A7875500502722 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		B3AACF1D9546BAD6E5B26AD3 /* Pods_TheNewFlickr_TheNewFlickrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNewFlickr_TheNewFlickrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFC420B33F9FC76BE59A8AD1 /* Pods-TheNewFlickr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.release.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.release.xcconfig"; sourceTree = "<group>"; };
 		F48994D2BEB1612AF7C63FF9 /* Pods-TheNewFlickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.debug.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		39482BE4269DBEFD00CE3789 /* TheNewFlickrTests */ = {
 			isa = PBXGroup;
 			children = (
+				76AACF9C26A7873900502722 /* Home */,
 				76412C86269F9D27006E788A /* Mock */,
 				39482BE5269DBEFD00CE3789 /* TheNewFlickrTests.swift */,
 				39482BE7269DBEFD00CE3789 /* Info.plist */,
@@ -416,6 +419,14 @@
 				76AACF9A26A72FEC00502722 /* CustomDropDown.swift */,
 			);
 			path = CustomDropDown;
+			sourceTree = "<group>";
+		};
+		76AACF9C26A7873900502722 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				76AACF9D26A7875500502722 /* HomeViewModelTests.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		95F264D018695261FA16A892 /* Pods */ = {
@@ -716,6 +727,7 @@
 			files = (
 				76412C8A269FA469006E788A /* SearchResponses.swift in Sources */,
 				39482BE6269DBEFD00CE3789 /* TheNewFlickrTests.swift in Sources */,
+				76AACF9E26A7875500502722 /* HomeViewModelTests.swift in Sources */,
 				76412C88269F9D3C006E788A /* MockApiHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
