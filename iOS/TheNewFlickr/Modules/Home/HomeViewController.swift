@@ -46,8 +46,8 @@ fileprivate extension HomeViewController {
             self?.collectionView.reloadData()
         }
         
-        viewModel.didSelectPhoto = {photo in
-            print(photo.title ?? "")
+        viewModel.didSelectPhoto = {[weak self] photo in
+            self?.showDetails(photo: photo)
         }
         
         viewModel.reloadTableView = {[weak self] in
@@ -62,6 +62,7 @@ fileprivate extension HomeViewController {
         setupSearchBar()
         addTapGestureToView()
         setupRefreshControl()
+        searchView.isHidden = true
     }
     
     func registerCells() {
@@ -108,6 +109,12 @@ fileprivate extension HomeViewController {
     
     @objc func reload() {
         viewModel.getSearchList()
+    }
+    
+    func showDetails(photo: Photo) {
+        let details = loadViewFromStoryboard(viewControllerType: DetailsViewController.self)
+        details.selectedPhoto = photo
+        navigationController?.pushViewController(details, animated: true)
     }
 }
 
@@ -176,8 +183,8 @@ extension HomeViewController: UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        viewModel.getCachedSearch()
         searchBar.showsCancelButton = true
+        searchView.isHidden = !(searchBar.text?.isEmpty ?? false)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

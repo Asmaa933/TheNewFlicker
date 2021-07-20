@@ -10,6 +10,7 @@ import Alamofire
 
 enum NetworkingApi {
     case getSearchPhotos(page: Int)
+    case getSizes(photoId: String)
 }
 
 extension NetworkingApi: Requestable {
@@ -29,6 +30,8 @@ extension NetworkingApi: Requestable {
         switch self {
         case .getSearchPhotos(let page):
             return APIInfo.getSearchParams(page: page)
+        case .getSizes(let photoId):
+            return APIInfo.getSizesParams(photoId: photoId)
         }
     }
     

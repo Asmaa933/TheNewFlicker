@@ -43,6 +43,8 @@
 		76412CC026A65EFE006E788A /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412CBF26A65EFE006E788A /* UIViewExtension.swift */; };
 		76AACF9326A6F32B00502722 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9226A6F32B00502722 /* DetailsViewController.swift */; };
 		76AACF9526A6F33800502722 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9426A6F33800502722 /* DetailsViewModel.swift */; };
+		76AACF9726A7119C00502722 /* PhotoSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9626A7119C00502722 /* PhotoSizes.swift */; };
+		76AACF9B26A72FEC00502722 /* CustomDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9A26A72FEC00502722 /* CustomDropDown.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		76412CBF26A65EFE006E788A /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		76AACF9226A6F32B00502722 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		76AACF9426A6F33800502722 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		76AACF9626A7119C00502722 /* PhotoSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSizes.swift; sourceTree = "<group>"; };
+		76AACF9A26A72FEC00502722 /* CustomDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDown.swift; sourceTree = "<group>"; };
 		B3AACF1D9546BAD6E5B26AD3 /* Pods_TheNewFlickr_TheNewFlickrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNewFlickr_TheNewFlickrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFC420B33F9FC76BE59A8AD1 /* Pods-TheNewFlickr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.release.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.release.xcconfig"; sourceTree = "<group>"; };
 		F48994D2BEB1612AF7C63FF9 /* Pods-TheNewFlickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.debug.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				76412C7D269F92AA006E788A /* SearchModel.swift */,
+				76AACF9626A7119C00502722 /* PhotoSizes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				76412C8B269FB455006E788A /* Base */,
+				76AACF9826A72FC100502722 /* CommonUI */,
 				76412C78269F83D2006E788A /* Constants */,
 				76412C79269F83DD006E788A /* Extensions */,
 				76412C83269F9833006E788A /* Helper */,
@@ -394,6 +400,22 @@
 				76AACF9426A6F33800502722 /* DetailsViewModel.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		76AACF9826A72FC100502722 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				76AACF9926A72FCE00502722 /* CustomDropDown */,
+			);
+			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		76AACF9926A72FCE00502722 /* CustomDropDown */ = {
+			isa = PBXGroup;
+			children = (
+				76AACF9A26A72FEC00502722 /* CustomDropDown.swift */,
+			);
+			path = CustomDropDown;
 			sourceTree = "<group>";
 		};
 		95F264D018695261FA16A892 /* Pods */ = {
@@ -673,10 +695,12 @@
 				76AACF9526A6F33800502722 /* DetailsViewModel.swift in Sources */,
 				39482BCF269DBEFA00CE3789 /* AppDelegate.swift in Sources */,
 				76412C8F269FB484006E788A /* BaseViewController.swift in Sources */,
+				76AACF9726A7119C00502722 /* PhotoSizes.swift in Sources */,
 				76412C8D269FB468006E788A /* BaseViewModel.swift in Sources */,
 				39482BD1269DBEFA00CE3789 /* SceneDelegate.swift in Sources */,
 				76412CA326A3946D006E788A /* HomeCell.swift in Sources */,
 				76412C93269FB60C006E788A /* NetworkingApi.swift in Sources */,
+				76AACF9B26A72FEC00502722 /* CustomDropDown.swift in Sources */,
 				76412C7E269F92AA006E788A /* SearchModel.swift in Sources */,
 				76412C91269FB54B006E788A /* Requestable.swift in Sources */,
 				76412C7C269F8429006E788A /* APIInfo.swift in Sources */,

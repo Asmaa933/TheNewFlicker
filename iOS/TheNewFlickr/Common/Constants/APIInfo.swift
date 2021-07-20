@@ -23,7 +23,7 @@ struct APIInfo {
         ]
     }
     
-    static func getSizes(photoId: String) -> [String: String] {
+    static func getSizesParams(photoId: String) -> [String: String] {
         return ["method": "flickr.photos.getSizes",
                 "api_key": key,
                 "photo_id": photoId,
