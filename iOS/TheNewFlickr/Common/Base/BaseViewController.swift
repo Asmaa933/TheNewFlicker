@@ -44,16 +44,18 @@ class BaseViewController: UIViewController {
         }
     }
     
-    func showActivityIndicator() -> UIActivityIndicatorView{
+    func showActivityIndicator() -> UIActivityIndicatorView {
+        view.isUserInteractionEnabled = false
         let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.color = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        activityIndicator.color = #colorLiteral(red: 0.9215686275, green: 0.2078431373, blue: 0.4941176471, alpha: 1)
         activityIndicator.center = view.center
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
         return activityIndicator
     }
 
-    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView){
+    func removeActivityIndicator(activityIndicator: UIActivityIndicatorView) {
+        view.isUserInteractionEnabled = true
         activityIndicator.stopAnimating()
         activityIndicator.removeFromSuperview()
         

@@ -13,13 +13,19 @@ class HomeViewController: BaseViewController {
     
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var searchView: UIView!
+    @IBOutlet private weak var cachedTableView: UITableView!
     
-    private let viewModel = HomeViewModel()
+    private(set) var viewModel = HomeViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
         setupView()
+    }
+    
+    @IBAction private func clearAction(_ sender: UIButton) {
+        viewModel.removeSearchHistory()
     }
 }
 
@@ -36,6 +42,10 @@ fileprivate extension HomeViewController {
             print(photo.title ?? "")
         }
         
+        viewModel.reloadTableView = {[weak self] in
+            self?.setupSearchView()
+        }
+        
         viewModel.getSearchList()
     }
     
@@ -48,6 +58,7 @@ fileprivate extension HomeViewController {
     func registerCells() {
         collectionView.registerCellNib(cellClass: HomeCell.self)
         collectionView.registerCellNib(cellClass: ActivityIndicatorCell.self)
+        cachedTableView.registerCellNib(cellClass: SearchCell.self)
     }
     
     func setupSearchBar() {
@@ -61,10 +72,24 @@ fileprivate extension HomeViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func endEditing() {
-        view.endEditing(true)
+    func setupSearchView() {
+        
+        cachedTableView.reloadData()
+        if viewModel.cachedSearchArray.isEmpty {
+            searchView.isHidden = true
+        } else {
+            searchView.isHidden = false
+            cachedTableView.scrollToRow(at: IndexPath(row: 0, section: 0),
+                                        at: .top,
+                                        animated: false)
+        }
     }
     
+    @objc func endEditing() {
+        view.endEditing(true)
+        searchView.isHidden = true
+        searchBar.showsCancelButton = false
+    }
     
 }
 
@@ -112,23 +137,52 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         if viewModel.hasMoreItems && indexPath.row == viewModel.getPhotosCount() && !viewModel.isSearch {
             return CGSize(width: width, height: 50)
         }else {
-            return CGSize(width: width / 2 , height: 130)
+            return CGSize(width: width / 2 - 7.5, height: 130)
         }
     }
 }
 
 extension HomeViewController: UISearchBarDelegate {
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
+        searchView.isHidden = true
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        viewModel.getCachedSearch()
         searchBar.showsCancelButton = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchView.isHidden = !searchText.isEmpty
         viewModel.searchInArray(searchText: searchText)
     }
     
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        viewModel.saveSearchResult(searchText: searchBar.text ?? "")
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let searchText = viewModel.cachedSearchArray[indexPath.row].item
+        searchBar.text = searchText
+        viewModel.searchInArray(searchText: searchText ?? "")
+        searchView.isHidden = true
+    }
+}
+
+extension HomeViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.cachedSearchArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeue() as SearchCell
+        cell.index = indexPath.row
+        cell.text = viewModel.cachedSearchArray[indexPath.row].item
+        return cell
+    }
 }

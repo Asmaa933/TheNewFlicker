@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,21 +31,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8LE-yy-7Gh">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wZn-7a-EJd"/>
-                                </connections>
-                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HHO-Jm-Fv7">
-                                <rect key="frame" x="0.0" y="61" width="375" height="606"/>
+                                <rect key="frame" x="15" y="61" width="345" height="606"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="G6H-2f-UNk">
+                                <inset key="scrollIndicatorInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="15" id="G6H-2f-UNk">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -56,28 +47,90 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="u0R-YP-cYl"/>
                                 </connections>
                             </collectionView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8LE-yy-7Gh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="51"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wZn-7a-EJd"/>
+                                </connections>
+                            </searchBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nJV-Kk-owW">
+                                <rect key="frame" x="0.0" y="51" width="375" height="0.0"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hFT-sT-q3V">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="262.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rS-R7-sa8">
+                                                <rect key="frame" x="329" y="10" width="36" height="30"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Clear">
+                                                    <color key="titleColor" systemColor="systemPinkColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clearAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4gv-Em-8At"/>
+                                                </connections>
+                                            </button>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EL0-pH-2BP">
+                                                <rect key="frame" x="0.0" y="50" width="375" height="202.5"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="A9D-4m-t1g"/>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="1PC-Vq-Bau"/>
+                                                </connections>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="2rS-R7-sa8" secondAttribute="trailing" constant="10" id="8F7-y5-l4D"/>
+                                            <constraint firstItem="2rS-R7-sa8" firstAttribute="top" secondItem="hFT-sT-q3V" secondAttribute="top" constant="10" id="RaX-Hf-ehg"/>
+                                            <constraint firstItem="EL0-pH-2BP" firstAttribute="top" secondItem="2rS-R7-sa8" secondAttribute="bottom" constant="10" id="T6D-x0-0hg"/>
+                                            <constraint firstAttribute="trailing" secondItem="EL0-pH-2BP" secondAttribute="trailing" id="TVT-Bk-QPd"/>
+                                            <constraint firstAttribute="bottom" secondItem="EL0-pH-2BP" secondAttribute="bottom" constant="10" id="h6G-Y2-2ao"/>
+                                            <constraint firstItem="EL0-pH-2BP" firstAttribute="leading" secondItem="hFT-sT-q3V" secondAttribute="leading" id="n3x-Um-95s"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="hFT-sT-q3V" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="L8j-Zp-Y64"/>
                             <constraint firstItem="8LE-yy-7Gh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LIx-DD-5WO"/>
                             <constraint firstItem="8LE-yy-7Gh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Mgb-Te-kR8"/>
-                            <constraint firstItem="HHO-Jm-Fv7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PMc-Y4-bEE"/>
+                            <constraint firstItem="HHO-Jm-Fv7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="PMc-Y4-bEE"/>
                             <constraint firstItem="8LE-yy-7Gh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ph0-Cy-pU9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HHO-Jm-Fv7" secondAttribute="trailing" id="ZCv-AP-giB"/>
+                            <constraint firstItem="nJV-Kk-owW" firstAttribute="top" secondItem="8LE-yy-7Gh" secondAttribute="bottom" id="XmU-PY-lLf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HHO-Jm-Fv7" secondAttribute="trailing" constant="15" id="ZCv-AP-giB"/>
                             <constraint firstItem="HHO-Jm-Fv7" firstAttribute="top" secondItem="8LE-yy-7Gh" secondAttribute="bottom" constant="10" id="Zio-iy-Xrb"/>
+                            <constraint firstItem="nJV-Kk-owW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dPq-h0-J42"/>
+                            <constraint firstItem="nJV-Kk-owW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pPE-dA-BY0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HHO-Jm-Fv7" secondAttribute="bottom" id="tfY-7L-01Q"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="TheNewFlickr" id="xlN-Dj-0Qm"/>
                     <connections>
+                        <outlet property="cachedTableView" destination="EL0-pH-2BP" id="Abc-BJ-ZiO"/>
                         <outlet property="collectionView" destination="HHO-Jm-Fv7" id="Fu4-dR-6f3"/>
                         <outlet property="searchBar" destination="8LE-yy-7Gh" id="bKv-fV-eBF"/>
+                        <outlet property="searchView" destination="hFT-sT-q3V" id="F2A-dR-i7h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6" y="-194"/>
+            <point key="canvasLocation" x="-7.2000000000000002" y="-194.75262368815595"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

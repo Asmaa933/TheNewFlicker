@@ -21,6 +21,13 @@ class HomeViewModel: BaseViewModel {
         }
     }
     
+    private(set) var cachedSearchArray = [CachedSearch]() {
+        didSet {
+            cachedSearchArray = cachedSearchArray.reversed()
+            reloadTableView?()
+        }
+    }
+    
     private(set) var hasMoreItems = false
     private var page: Int = 1
     private var totalPages:Int = 1 {
@@ -37,6 +44,7 @@ class HomeViewModel: BaseViewModel {
     var isSearch = false
     var reloadCollectionView: (() -> ())?
     var didSelectPhoto: ((Photo) -> ())?
+    var reloadTableView: (() -> ())?
     
     func getSearchList() {
         startRequest(request: NetworkingApi.getSearchPhotos(page: page),
@@ -49,7 +57,7 @@ class HomeViewModel: BaseViewModel {
                      }, showLoading: page == 1 )
     }
     
-    func searchInArray(searchText: String){
+    func searchInArray(searchText: String) {
         searchArray = [Photo]()
         if (searchText.isEmpty){
             isSearch = false
@@ -68,6 +76,29 @@ class HomeViewModel: BaseViewModel {
     }
     
     func didSelectPhoto(at index: Int) {
-        isSearch ? didSelectPhoto?(searchArray[index]): didSelectPhoto?(photosArray[index])
+        isSearch ? didSelectPhoto?(searchArray[index]) : didSelectPhoto?(photosArray[index])
+    }
+    
+    func getCachedSearch() {
+        cachedSearchArray = CoreDataHandler.shared.getDataFromCoreData() ?? []
+    }
+    
+    func saveSearchResult(searchText: String) {
+        if !searchText.isEmpty {
+            if cachedSearchArray.filter({$0.item == searchText}).isEmpty {
+                let searchItem = CachedSearch(context: CoreDataHandler.shared.getCoreDataobject())
+                searchItem.item = searchText
+                CoreDataHandler.shared.saveIntoCoreData(searchItem: searchItem)
+            }
+        }
+    }
+    
+    func removeSearchHistory() {
+        CoreDataHandler.shared.clearCoreData()
+        cachedSearchArray.removeAll()
+    }
+    
+    func removeSearch(at index: Int) {
+        cachedSearchArray = CoreDataHandler.shared.deleteObjectFromCoreData(item: cachedSearchArray[index]) ?? []
     }
 }
