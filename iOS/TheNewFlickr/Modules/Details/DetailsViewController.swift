@@ -9,7 +9,7 @@ import UIKit
 
 class DetailsViewController: BaseViewController {
 
-    // 0 creator 1 title 2 date
+    // 0 creator 1 title
     @IBOutlet private var labelsArray: [UILabel]!
     @IBOutlet private weak var photoImageView: UIImageView!
     @IBOutlet private weak var dropDown: CustomDropDown!
@@ -49,10 +49,10 @@ fileprivate extension DetailsViewController {
     func setupView() {
         labelsArray[0].text = selectedPhoto?.owner
         labelsArray[1].text = selectedPhoto?.title
-        labelsArray[2].text = selectedPhoto?.owner
         let imageUrl = APIInfo.imageURL + (selectedPhoto?.server ?? "") + "/\(selectedPhoto?.id ?? "")_\(selectedPhoto?.secret ?? "").jpg"
         photoImageView.sd_setImage(with: URL(string: imageUrl),
                                 placeholderImage: #imageLiteral(resourceName: "placeHolder"))
+        photoImageView.layer.cornerRadius = 15
     }
     
     func setupDropDown() {
@@ -70,11 +70,7 @@ fileprivate extension DetailsViewController {
     }
     
     func setupPhotoSize(at index: Int) {
-        var width = CGFloat(viewModel.photoSizes[index].width ?? 150)
-        if width > view.frame.size.width {
-            width = view.frame.size.width
-        }
-        widthConstraint.constant = width
+        widthConstraint.constant = CGFloat(viewModel.photoSizes[index].width ?? 150)
         heightConstraint.constant = CGFloat(viewModel.photoSizes[index].height ?? 150)
         photoImageView.sd_setImage(with: URL(string: viewModel.photoSizes[index].source ?? ""),
                                    placeholderImage: #imageLiteral(resourceName: "placeHolder"))
