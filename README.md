@@ -1,15 +1,15 @@
 # The New Flicker
 
 ## Use
-MVVM
-Core Data to cache search history
+- MVVM
+- Core Data to cache search history
 
 ## Pods
 
-Alamofire:  HTTP Networking
-PromiseKit: Simplify the asynchronous tasks
-SDWebImage: Async image downloader with cache support
-DropDown:  Design drop down
+- **Alamofire**:  HTTP Networking
+- **PromiseKit**: Simplify the asynchronous tasks
+- **SDWebImage**: Async image downloader with cache support
+- **DropDown**:  Design drop down
 
 ## ScreenShots
 
