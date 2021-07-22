@@ -184,6 +184,7 @@ extension HomeViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+        viewModel.getCachedSearch()
         searchView.isHidden = !(searchBar.text?.isEmpty ?? false)
     }
     
