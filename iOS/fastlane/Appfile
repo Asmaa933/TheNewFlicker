@@ -1,5 +1,8 @@
 app_identifier("esma.TheNewFlickr") # The bundle identifier of your app
 apple_id("asmaatarek93@gmail.com") # Your Apple email address
+team_id "QVCZFS2TP2" # Developer Portal Team ID
+itc_team_id "121820337" # App Store Connect Team ID
+
 
 
 # For more information about the Appfile, see:
