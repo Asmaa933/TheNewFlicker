@@ -3,6 +3,7 @@
 ## Use
 - MVVM
 - Core Data to cache search history
+- Fastlane: Use it for Create app and take screenshots
 
 ## Pods
 
