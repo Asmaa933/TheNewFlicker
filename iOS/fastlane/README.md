@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane ios create_app
 ```
 Create App on Apple Developer and App Store Connect
+### ios take_screenshot
+```
+fastlane ios take_screenshot
+```
+Take screenshots
 
 ----
 
