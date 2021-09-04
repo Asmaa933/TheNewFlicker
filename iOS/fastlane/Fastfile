@@ -20,4 +20,8 @@ platform :ios do
   lane :create_app do
     produce
   end
+   desc "Take screenshots"
+   lane :take_screenshot do
+     snapshot
+  end
 end
