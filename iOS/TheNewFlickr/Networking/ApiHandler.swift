@@ -16,34 +16,57 @@ protocol ApiHandlerProtocol {
 class ApiHandler: ApiHandlerProtocol {
     func fetchData<T: Decodable>(request: Requestable, mappingClass: T.Type) -> Promise<T> {
         return Promise<T> { seal in
-            if NetworkMonitor.shared.netOn {
-                AF.request(APIInfo.url,
-                           method: request.method,
-                           parameters: request.parameters,
-                           encoding: request.encoding,
-                           headers: request.headers)
-                    .responseJSON { response in
-                        switch response.result {
-                        case .success:
-                            guard let jsonResponse = response.data else {
-                                seal.reject(ErrorHandler.generalError)
-                                return
-                            }
-                            do {
-                                let search = try JSONDecoder().decode(T.self, from: jsonResponse)
-                                seal.fulfill(search)
-                            } catch (let error){
-                                debugPrint("Error in decoding ** \n \(error.localizedDescription.description)")
-                                seal.reject(ErrorHandler.generalError)
-                            }
-                        case .failure(let error):
-                            debugPrint(error.localizedDescription.description)
-                            seal.reject(error)
-                        }
+            if isNetworkConnected() {
+                getRequestData(request: request).responseJSON {[weak self] response in
+                    guard let self = self else { return }
+                    let response = self.handleResponse(response: response, mappingClass: T.self)
+                    switch response {
+                    case .success(let decodedObj):
+                        seal.fulfill(decodedObj)
+                    case .failure(let error):
+                        seal.reject(error)
                     }
+                }
             } else {
                 seal.reject(ErrorHandler.noInternetConnection)
             }
+        }
+    }
+}
+
+private extension ApiHandler {
+    
+    func isNetworkConnected() -> Bool {
+        return NetworkMonitor.shared.netOn
+    }
+    
+    func getRequestData(request: Requestable) -> DataRequest {
+        let requestData = AF.request(request.path,
+                                     method: request.method,
+                                     parameters: request.parameters,
+                                     encoding: request.encoding,
+                                     headers: request.headers)
+        return requestData
+    }
+    
+    func handleResponse<T: Decodable> (response: AFDataResponse<Any>, mappingClass: T.Type) -> Swift.Result<T, Error> {
+        switch response.result {
+        
+        case .success(_):
+            guard let jsonResponse = response.data else {
+                return .failure(ErrorHandler.generalError)
+            }
+            do {
+                let decodedObj = try JSONDecoder().decode(T.self, from: jsonResponse)
+                return .success(decodedObj)
+            } catch (let error){
+                debugPrint("Error in decoding ** \n \(error.localizedDescription.description)")
+                return .failure(ErrorHandler.generalError)
+            }
+            
+        case .failure(let error):
+            debugPrint(error.localizedDescription.description)
+            return .failure(error)
         }
     }
 }
