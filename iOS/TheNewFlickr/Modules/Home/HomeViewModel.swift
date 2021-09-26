@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HomeViewModel: BaseViewModel {
+class HomeViewModel: ApiCallerViewModel {
     
     private var photosArray = [Photo]() {
         didSet {

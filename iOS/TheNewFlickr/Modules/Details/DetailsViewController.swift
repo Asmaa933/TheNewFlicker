@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsViewController: BaseViewController {
+class DetailsViewController: UIViewController {
 
     // 0 creator 1 title
     @IBOutlet private var labelsArray: [UILabel]!
@@ -34,7 +34,7 @@ class DetailsViewController: BaseViewController {
 fileprivate extension DetailsViewController {
     
     func setupViewModel() {
-        setupViewModel(viewModel: viewModel)
+       // setupViewModel(viewModel: viewModel)
         
         viewModel.updateDropDown = {[weak self]  in
             self?.setupDropDown()

@@ -9,7 +9,7 @@ import UIKit
 import PromiseKit
 
 
-class HomeViewController: BaseViewController {
+class HomeViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet private weak var searchBar: UISearchBar!
@@ -38,7 +38,7 @@ class HomeViewController: BaseViewController {
 fileprivate extension HomeViewController {
     
     func setupViewModel() {
-        setupViewModel(viewModel: viewModel)
+       // setupViewModel(viewModel: viewModel)
         
         viewModel.reloadCollectionView = {[weak self] in
             self?.refreshControl.endRefreshing()

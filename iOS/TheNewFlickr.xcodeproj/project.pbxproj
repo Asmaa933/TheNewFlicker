@@ -25,8 +25,6 @@
 		76412C85269F9880006E788A /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C84269F987F006E788A /* NetworkMonitor.swift */; };
 		76412C88269F9D3C006E788A /* MockApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C87269F9D3C006E788A /* MockApiHandler.swift */; };
 		76412C8A269FA469006E788A /* SearchResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C89269FA469006E788A /* SearchResponses.swift */; };
-		76412C8D269FB468006E788A /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C8C269FB468006E788A /* BaseViewModel.swift */; };
-		76412C8F269FB484006E788A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C8E269FB484006E788A /* BaseViewController.swift */; };
 		76412C91269FB54B006E788A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C90269FB54B006E788A /* Requestable.swift */; };
 		76412C93269FB60C006E788A /* NetworkingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C92269FB60C006E788A /* NetworkingApi.swift */; };
 		76412C9F26A388E8006E788A /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76412C9E26A388E8006E788A /* UICollectionViewExtension.swift */; };
@@ -47,6 +45,12 @@
 		76AACF9B26A72FEC00502722 /* CustomDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9A26A72FEC00502722 /* CustomDropDown.swift */; };
 		76AACF9E26A7875500502722 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AACF9D26A7875500502722 /* HomeViewModelTests.swift */; };
 		991178A026E388E000A7291A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9911789F26E388E000A7291A /* SnapshotHelper.swift */; };
+		99E099472700D6BA00C01FDF /* LoadingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E099462700D6BA00C01FDF /* LoadingProtocol.swift */; };
+		99E099492700D86C00C01FDF /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E099482700D86C00C01FDF /* UIViewControllerExtension.swift */; };
+		99E0994B2700D90A00C01FDF /* AlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0994A2700D90A00C01FDF /* AlertProtocol.swift */; };
+		99E0994D2700DB7300C01FDF /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0994C2700DB7300C01FDF /* ViewModelProtocol.swift */; };
+		99E0994F2700E10700C01FDF /* ApiCallerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E0994E2700E10700C01FDF /* ApiCallerViewModel.swift */; };
+		99E099522700E2ED00C01FDF /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E099512700E2ED00C01FDF /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,8 +98,6 @@
 		76412C84269F987F006E788A /* NetworkMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		76412C87269F9D3C006E788A /* MockApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiHandler.swift; sourceTree = "<group>"; };
 		76412C89269FA469006E788A /* SearchResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponses.swift; sourceTree = "<group>"; };
-		76412C8C269FB468006E788A /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
-		76412C8E269FB484006E788A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		76412C90269FB54B006E788A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		76412C92269FB60C006E788A /* NetworkingApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApi.swift; sourceTree = "<group>"; };
 		76412C9E26A388E8006E788A /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
@@ -116,6 +118,12 @@
 		76AACF9A26A72FEC00502722 /* CustomDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDown.swift; sourceTree = "<group>"; };
 		76AACF9D26A7875500502722 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		9911789F26E388E000A7291A /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		99E099462700D6BA00C01FDF /* LoadingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProtocol.swift; sourceTree = "<group>"; };
+		99E099482700D86C00C01FDF /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		99E0994A2700D90A00C01FDF /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
+		99E0994C2700DB7300C01FDF /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		99E0994E2700E10700C01FDF /* ApiCallerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCallerViewModel.swift; sourceTree = "<group>"; };
+		99E099512700E2ED00C01FDF /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		B3AACF1D9546BAD6E5B26AD3 /* Pods_TheNewFlickr_TheNewFlickrUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheNewFlickr_TheNewFlickrUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFC420B33F9FC76BE59A8AD1 /* Pods-TheNewFlickr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.release.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.release.xcconfig"; sourceTree = "<group>"; };
 		F48994D2BEB1612AF7C63FF9 /* Pods-TheNewFlickr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheNewFlickr.debug.xcconfig"; path = "Target Support Files/Pods-TheNewFlickr/Pods-TheNewFlickr.debug.xcconfig"; sourceTree = "<group>"; };
@@ -279,9 +287,10 @@
 		76412C77269F83B7006E788A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				76412C8B269FB455006E788A /* Base */,
+				76412C8B269FB455006E788A /* ApiCaller */,
 				76AACF9826A72FC100502722 /* CommonUI */,
 				76412C78269F83D2006E788A /* Constants */,
+				99E099452700D6A000C01FDF /* Protocols */,
 				76412C79269F83DD006E788A /* Extensions */,
 				76412C83269F9833006E788A /* Helper */,
 			);
@@ -292,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				76412C7B269F8429006E788A /* APIInfo.swift */,
+				99E099512700E2ED00C01FDF /* State.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -302,6 +312,7 @@
 				76412C9E26A388E8006E788A /* UICollectionViewExtension.swift */,
 				76412CB826A65CD7006E788A /* UITableViewExtension.swift */,
 				76412CBF26A65EFE006E788A /* UIViewExtension.swift */,
+				99E099482700D86C00C01FDF /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -335,13 +346,13 @@
 			path = Mock;
 			sourceTree = "<group>";
 		};
-		76412C8B269FB455006E788A /* Base */ = {
+		76412C8B269FB455006E788A /* ApiCaller */ = {
 			isa = PBXGroup;
 			children = (
-				76412C8C269FB468006E788A /* BaseViewModel.swift */,
-				76412C8E269FB484006E788A /* BaseViewController.swift */,
+				99E0994C2700DB7300C01FDF /* ViewModelProtocol.swift */,
+				99E0994E2700E10700C01FDF /* ApiCallerViewModel.swift */,
 			);
-			path = Base;
+			path = ApiCaller;
 			sourceTree = "<group>";
 		};
 		76412C9D26A38682006E788A /* Home */ = {
@@ -443,6 +454,15 @@
 				7387C1B6931C09B9A9BE0B6F /* Pods-TheNewFlickrTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		99E099452700D6A000C01FDF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				99E099462700D6BA00C01FDF /* LoadingProtocol.swift */,
+				99E0994A2700D90A00C01FDF /* AlertProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		D1396739AD5605CE6CE7AF43 /* Frameworks */ = {
@@ -700,20 +720,24 @@
 				76412CBD26A65DAD006E788A /* SearchCell.swift in Sources */,
 				76412CB726A64757006E788A /* CoreDataHandler.swift in Sources */,
 				76AACF9326A6F32B00502722 /* DetailsViewController.swift in Sources */,
+				99E0994B2700D90A00C01FDF /* AlertProtocol.swift in Sources */,
 				76412C85269F9880006E788A /* NetworkMonitor.swift in Sources */,
 				76412C82269F9705006E788A /* ErrorHandler.swift in Sources */,
+				99E099472700D6BA00C01FDF /* LoadingProtocol.swift in Sources */,
+				99E099522700E2ED00C01FDF /* State.swift in Sources */,
+				99E0994F2700E10700C01FDF /* ApiCallerViewModel.swift in Sources */,
 				76412CB926A65CD8006E788A /* UITableViewExtension.swift in Sources */,
 				76412CAC26A39522006E788A /* HomeViewModel.swift in Sources */,
 				76412CB426A645F9006E788A /* TheNewFlickr.xcdatamodeld in Sources */,
 				76412C80269F953A006E788A /* ApiHandler.swift in Sources */,
+				99E099492700D86C00C01FDF /* UIViewControllerExtension.swift in Sources */,
 				76AACF9526A6F33800502722 /* DetailsViewModel.swift in Sources */,
 				39482BCF269DBEFA00CE3789 /* AppDelegate.swift in Sources */,
-				76412C8F269FB484006E788A /* BaseViewController.swift in Sources */,
 				76AACF9726A7119C00502722 /* PhotoSizes.swift in Sources */,
-				76412C8D269FB468006E788A /* BaseViewModel.swift in Sources */,
 				39482BD1269DBEFA00CE3789 /* SceneDelegate.swift in Sources */,
 				76412CA326A3946D006E788A /* HomeCell.swift in Sources */,
 				76412C93269FB60C006E788A /* NetworkingApi.swift in Sources */,
+				99E0994D2700DB7300C01FDF /* ViewModelProtocol.swift in Sources */,
 				76AACF9B26A72FEC00502722 /* CustomDropDown.swift in Sources */,
 				76412C7E269F92AA006E788A /* SearchModel.swift in Sources */,
 				76412C91269FB54B006E788A /* Requestable.swift in Sources */,

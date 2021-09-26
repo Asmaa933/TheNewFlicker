@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DetailsViewModel: BaseViewModel {
+class DetailsViewModel: ApiCallerViewModel {
     
     var updateDropDown: (() -> ())?
     var reloadPhoto: ((Int) -> ())?
