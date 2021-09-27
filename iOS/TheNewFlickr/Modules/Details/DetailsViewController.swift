@@ -16,7 +16,10 @@ class DetailsViewController: UIViewController {
     @IBOutlet private weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     
+    private var loaderIndicator: UIActivityIndicatorView?
+
     private let viewModel = DetailsViewModel()
+    
     var selectedPhoto: Photo?
     
     override func viewDidLoad() {
@@ -34,8 +37,10 @@ class DetailsViewController: UIViewController {
 fileprivate extension DetailsViewController {
     
     func setupViewModel() {
-       // setupViewModel(viewModel: viewModel)
         
+        viewModel.apiCaller.updateLoadingStatus = {[weak self] in
+            self?.handleLoadingState()
+        }
         viewModel.updateDropDown = {[weak self]  in
             self?.setupDropDown()
         }
@@ -44,6 +49,20 @@ fileprivate extension DetailsViewController {
             self?.setupPhotoSize(at: index)
         }
         viewModel.getPhotoDetails(photoId: selectedPhoto?.id ?? "")
+    }
+    
+    func handleLoadingState() {
+        switch viewModel.apiCaller.state {
+        case .loading:
+            loaderIndicator = showLoading(view: dropDown)
+        case .populated:
+            removeLoading(loaderIndicator, from: dropDown)
+            setupDropDown()
+            loaderIndicator = nil
+        case .empty, .error:
+            removeLoading(loaderIndicator, from: dropDown)
+            loaderIndicator = nil
+        }
     }
     
     func setupView() {
@@ -76,3 +95,7 @@ fileprivate extension DetailsViewController {
                                    placeholderImage: #imageLiteral(resourceName: "placeHolder"))
     }
 }
+
+extension DetailsViewController: LoadingProtocol {}
+
+extension DetailsViewController: AlertProtocol {}

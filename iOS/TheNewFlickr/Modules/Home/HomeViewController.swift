@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     //MARK: - Variables
     private(set) var viewModel = HomeViewModel()
     private let refreshControl = UIRefreshControl()
+    private var loaderIndicator: UIActivityIndicatorView?
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -33,17 +34,16 @@ class HomeViewController: UIViewController {
         viewModel.removeSearchHistory()
     }
 }
-
 //MARK: - Helper Methods
 fileprivate extension HomeViewController {
     
     func setupViewModel() {
-       // setupViewModel(viewModel: viewModel)
+        viewModel.apiCaller.updateLoadingStatus = {[weak self] in
+            self?.handleLoadingState()
+        }
         
-        viewModel.reloadCollectionView = {[weak self] in
-            self?.refreshControl.endRefreshing()
-            self?.collectionView.isHidden = false
-            self?.collectionView.reloadData()
+        viewModel.apiCaller.updateError = {[weak self] message in
+            self?.showAlert(message: message)
         }
         
         viewModel.didSelectPhoto = {[weak self] photo in
@@ -55,6 +55,26 @@ fileprivate extension HomeViewController {
         }
         
         viewModel.getSearchList()
+    }
+    
+    func handleLoadingState() {
+        switch viewModel.apiCaller.state {
+        case .loading:
+            loaderIndicator = showLoading(view: collectionView)
+        case .populated:
+            removeLoading(loaderIndicator, from: collectionView)
+            notifyDataFetched()
+            loaderIndicator = nil
+        case .empty, .error:
+            removeLoading(loaderIndicator, from: collectionView)
+            loaderIndicator = nil
+        }
+    }
+    
+    func notifyDataFetched() {
+        refreshControl.endRefreshing()
+        collectionView.isHidden = false
+        collectionView.reloadData()
     }
     
     func setupView() {
@@ -136,7 +156,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = viewModel.getPhotosCount()
-        if count == 0 {
+        if count == 0 && loaderIndicator == nil {
             collectionView.setEmptyView(with: #imageLiteral(resourceName: "notfound"), title: "Nothing Found")
         } else if viewModel.hasMoreItems && !viewModel.isSearch {
             count += 1
@@ -226,3 +246,7 @@ extension HomeViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension HomeViewController: LoadingProtocol {}
+
+extension HomeViewController: AlertProtocol {}

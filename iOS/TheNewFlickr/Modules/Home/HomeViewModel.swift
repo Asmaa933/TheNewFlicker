@@ -7,19 +7,30 @@
 
 import Foundation
 
-class HomeViewModel: ApiCallerViewModel {
+protocol HomeViewModelProtocol {
+    var cachedSearchArray: [CachedSearch] { get }
+    var hasMoreItems: Bool { get }
+    var didSelectPhoto: ((Photo) -> ())? { get set }
+    var reloadTableView: (() -> ())? { get set }
     
-    private var photosArray = [Photo]() {
-        didSet {
-            reloadCollectionView?()
-        }
-    }
+    func getSearchList()
+    func searchInArray(searchText: String)
+    func getPhotosCount() -> Int
+    func getPhoto(at index: Int) -> Photo
+    func didSelectPhoto(at index: Int)
+    func getCachedSearch()
+    func saveSearchResult(searchText: String)
+    func removeSearchHistory()
+    func removeSearch(at index: Int)
+}
+
+class HomeViewModel {
+
+    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCallerViewModel()
+
+    private var photosArray = [Photo]()
     
-    private var searchArray = [Photo]() {
-        didSet {
-            reloadCollectionView?()
-        }
-    }
+    private var searchArray = [Photo]()
     
     private(set) var cachedSearchArray = [CachedSearch]() {
         didSet {
@@ -30,7 +41,7 @@ class HomeViewModel: ApiCallerViewModel {
     
     private(set) var hasMoreItems = false
     private var page: Int = 1
-    private var totalPages:Int = 1 {
+    private var totalPages: Int = 1 {
         didSet {
             if totalPages > page {
                 page += 1
@@ -42,12 +53,12 @@ class HomeViewModel: ApiCallerViewModel {
     }
     
     var isSearch = false
-    var reloadCollectionView: (() -> ())?
     var didSelectPhoto: ((Photo) -> ())?
     var reloadTableView: (() -> ())?
+    let api = ApiHandler()
     
     func getSearchList() {
-        startRequest(request: NetworkingApi.getSearchPhotos(page: page),
+        apiCaller.startRequest(api: api , request: NetworkingApi.getSearchPhotos(page: page),
                      mappingClass: SearchModel.self,
                      successCompletion: {[weak self] response in
                         guard let self = self else { return }

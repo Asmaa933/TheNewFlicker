@@ -7,8 +7,9 @@
 
 import Foundation
 
-class DetailsViewModel: ApiCallerViewModel {
+class DetailsViewModel {
     
+    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCallerViewModel()
     var updateDropDown: (() -> ())?
     var reloadPhoto: ((Int) -> ())?
     private(set) var photoSizes = [Size]() {
@@ -20,12 +21,11 @@ class DetailsViewModel: ApiCallerViewModel {
     
     private(set) var dropDownItems = [String]()
     
-    
+    let apiHandler = ApiHandler()
     func getPhotoDetails(photoId: String) {
-        startRequest(request: NetworkingApi.getSizes(photoId: photoId),
-                     mappingClass: PhotoSizes.self) {[weak self] response in
+        apiCaller.startRequest(api: apiHandler, request: NetworkingApi.getSizes(photoId: photoId), mappingClass: PhotoSizes.self, successCompletion: {[weak self] response in
             self?.photoSizes = response?.sizes?.size ?? []
-        }
+        }, showLoading: true)
     }
     
     func selectSize(at index: Int) {

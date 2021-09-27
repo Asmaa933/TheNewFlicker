@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ApiCallerProtocol {
+protocol ApiCallerProtocol: AnyObject {
     
     var updateLoadingStatus: (()->())? { get set }
     var updateError: ((String)->())? { get set }

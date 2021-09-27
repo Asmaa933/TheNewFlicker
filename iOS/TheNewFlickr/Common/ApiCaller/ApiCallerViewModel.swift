@@ -17,7 +17,7 @@ class ApiCallerViewModel: ApiCallerProtocol {
         }
     }
    
-    func startRequest<M: Codable> (api: ApiHandlerProtocol = ApiHandler(),
+    func startRequest<M: Codable> (api: ApiHandlerProtocol,
                                    request: Requestable,
                                    mappingClass: M.Type,
                                    successCompletion: @escaping ((M?) -> Void),
