@@ -17,7 +17,7 @@ extension LoadingProtocol {
     func showLoading(view: UIView) -> UIActivityIndicatorView {
         view.isUserInteractionEnabled = false
         let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.color = #colorLiteral(red: 0.9215686275, green: 0.2078431373, blue: 0.4941176471, alpha: 1)
+        activityIndicator.color = #colorLiteral(red: 0, green: 0.568627451, blue: 0.5764705882, alpha: 1)
         activityIndicator.center = view.center
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)

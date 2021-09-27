@@ -7,11 +7,4 @@
 
 import UIKit
 
-class ActivityIndicatorCell: UICollectionViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-}
+class ActivityIndicatorCell: UICollectionViewCell {}
