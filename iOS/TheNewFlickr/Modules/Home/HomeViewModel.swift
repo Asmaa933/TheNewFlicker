@@ -8,10 +8,13 @@
 import Foundation
 
 protocol HomeViewModelProtocol {
+    
+    var apiCaller: ApiCallerProtocol { get }
     var cachedSearchArray: [CachedSearch] { get }
-    var hasMoreItems: Bool { get }
     var didSelectPhoto: ((Photo) -> ())? { get set }
     var reloadTableView: (() -> ())? { get set }
+    var isSearch: Bool { set get }
+    var hasMoreItems: Bool { set get }
     
     func getSearchList()
     func searchInArray(searchText: String)
@@ -25,13 +28,14 @@ protocol HomeViewModelProtocol {
 }
 
 class HomeViewModel {
-
+    
     private(set) lazy var apiCaller: ApiCallerProtocol = ApiCallerViewModel()
-
+    
+    var didSelectPhoto: ((Photo) -> ())?
+    var reloadTableView: (() -> ())?
+    
     private var photosArray = [Photo]()
-    
     private var searchArray = [Photo]()
-    
     private(set) var cachedSearchArray = [CachedSearch]() {
         didSet {
             cachedSearchArray = cachedSearchArray.reversed()
@@ -39,8 +43,10 @@ class HomeViewModel {
         }
     }
     
-    private(set) var hasMoreItems = false
+    var isSearch = false
+    var hasMoreItems = false
     private var page: Int = 1
+    private let api = ApiHandler()
     private var totalPages: Int = 1 {
         didSet {
             if totalPages > page {
@@ -51,30 +57,28 @@ class HomeViewModel {
             }
         }
     }
-    
-    var isSearch = false
-    var didSelectPhoto: ((Photo) -> ())?
-    var reloadTableView: (() -> ())?
-    let api = ApiHandler()
+}
+
+extension HomeViewModel: HomeViewModelProtocol {
     
     func getSearchList() {
         apiCaller.startRequest(api: api , request: NetworkingApi.getSearchPhotos(page: page),
-                     mappingClass: SearchModel.self,
-                     successCompletion: {[weak self] response in
-                        guard let self = self else { return }
-                        self.photosArray.append(contentsOf: response?.photos?.photo ?? [])
-                        self.page = response?.photos?.page ?? 1
-                        self.totalPages = response?.photos?.pages ?? 1
-                     }, showLoading: page == 1 )
+                               mappingClass: SearchModel.self,
+                               successCompletion: {[weak self] response in
+                                guard let self = self else { return }
+                                self.photosArray.append(contentsOf: response?.photos?.photo ?? [])
+                                self.page = response?.photos?.page ?? 1
+                                self.totalPages = response?.photos?.pages ?? 1
+                               }, showLoading: page == 1 )
     }
     
     func searchInArray(searchText: String) {
         searchArray = [Photo]()
-        if (searchText.isEmpty){
+        if (searchText.isEmpty) {
             isSearch = false
         }else{
             isSearch = true
-            searchArray = photosArray.filter {$0.title?.contains(searchText) ?? false}
+            searchArray = photosArray.filter { $0.title?.contains(searchText) ?? false }
         }
     }
     

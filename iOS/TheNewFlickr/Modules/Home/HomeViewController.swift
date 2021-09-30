@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     @IBOutlet private weak var cachedTableView: UITableView!
     
     //MARK: - Variables
-    private(set) var viewModel = HomeViewModel()
+    private(set) var viewModel: HomeViewModelProtocol = HomeViewModel()
     private let refreshControl = UIRefreshControl()
     private var loaderIndicator: UIActivityIndicatorView?
     
