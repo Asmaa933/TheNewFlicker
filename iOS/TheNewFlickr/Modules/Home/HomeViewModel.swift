@@ -16,7 +16,7 @@ protocol HomeViewModelProtocol {
     var isSearch: Bool { set get }
     var hasMoreItems: Bool { set get }
     
-    func getSearchList()
+    func fetchSearchList()
     func searchInArray(searchText: String)
     func getPhotosCount() -> Int
     func getPhoto(at index: Int) -> Photo
@@ -29,8 +29,9 @@ protocol HomeViewModelProtocol {
 
 class HomeViewModel {
     
-    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCallerViewModel()
-    
+    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCaller()
+    private let api = ApiHandler()
+
     var didSelectPhoto: ((Photo) -> ())?
     var reloadTableView: (() -> ())?
     
@@ -46,7 +47,6 @@ class HomeViewModel {
     var isSearch = false
     var hasMoreItems = false
     private var page: Int = 1
-    private let api = ApiHandler()
     private var totalPages: Int = 1 {
         didSet {
             if totalPages > page {
@@ -61,7 +61,7 @@ class HomeViewModel {
 
 extension HomeViewModel: HomeViewModelProtocol {
     
-    func getSearchList() {
+    func fetchSearchList() {
         apiCaller.startRequest(api: api , request: NetworkingApi.getSearchPhotos(page: page),
                                mappingClass: SearchModel.self,
                                successCompletion: {[weak self] response in

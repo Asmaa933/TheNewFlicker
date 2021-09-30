@@ -1,5 +1,5 @@
 //
-//  ViewModelProtocol.swift
+//  ApiCallerProtocol.swift
 //  TheNewFlickr
 //
 //  Created by Asmaa Tarek on 26/09/2021.

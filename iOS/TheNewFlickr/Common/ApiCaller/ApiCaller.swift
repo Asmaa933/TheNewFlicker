@@ -1,5 +1,5 @@
 //
-//  ApiCallerViewModel.swift
+//  ApiCaller.swift
 //  TheNewFlickr
 //
 //  Created by Asmaa Tarek on 26/09/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ApiCallerViewModel: ApiCallerProtocol {
+class ApiCaller: ApiCallerProtocol {
   
     var updateLoadingStatus: (() -> ())?
     var updateError: ((String) -> ())?

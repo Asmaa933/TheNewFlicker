@@ -54,7 +54,7 @@ fileprivate extension HomeViewController {
             self?.setupSearchView()
         }
         
-        viewModel.getSearchList()
+        viewModel.fetchSearchList()
     }
     
     func handleLoadingState() {
@@ -128,7 +128,7 @@ fileprivate extension HomeViewController {
     }
     
     @objc func reload() {
-        viewModel.getSearchList()
+        viewModel.fetchSearchList()
     }
     
     func showDetails(photo: Photo) {
@@ -147,7 +147,7 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let _ = cell as? ActivityIndicatorCell {
-            viewModel.getSearchList()
+            viewModel.fetchSearchList()
         }
     }
 }

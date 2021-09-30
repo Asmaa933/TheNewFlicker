@@ -9,7 +9,7 @@ import Foundation
 
 class DetailsViewModel {
     
-    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCallerViewModel()
+    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCaller()
     var updateDropDown: (() -> ())?
     var reloadPhoto: ((Int) -> ())?
     private(set) var photoSizes = [Size]() {
