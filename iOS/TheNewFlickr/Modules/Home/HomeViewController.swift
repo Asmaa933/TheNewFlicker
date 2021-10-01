@@ -9,7 +9,7 @@ import UIKit
 import PromiseKit
 
 
-class HomeViewController: BaseViewController {
+class HomeViewController: UIViewController {
     
     //MARK: - Outlets
     @IBOutlet private weak var searchBar: UISearchBar!
@@ -18,8 +18,9 @@ class HomeViewController: BaseViewController {
     @IBOutlet private weak var cachedTableView: UITableView!
     
     //MARK: - Variables
-    private(set) var viewModel = HomeViewModel()
+    private(set) var viewModel: HomeViewModelProtocol = HomeViewModel()
     private let refreshControl = UIRefreshControl()
+    private var loaderIndicator: UIActivityIndicatorView?
     
     // MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -33,17 +34,16 @@ class HomeViewController: BaseViewController {
         viewModel.removeSearchHistory()
     }
 }
-
 //MARK: - Helper Methods
 fileprivate extension HomeViewController {
     
     func setupViewModel() {
-        setupViewModel(viewModel: viewModel)
+        viewModel.apiCaller.updateLoadingStatus = {[weak self] in
+            self?.handleLoadingState()
+        }
         
-        viewModel.reloadCollectionView = {[weak self] in
-            self?.refreshControl.endRefreshing()
-            self?.collectionView.isHidden = false
-            self?.collectionView.reloadData()
+        viewModel.apiCaller.updateError = {[weak self] message in
+            self?.showAlert(message: message)
         }
         
         viewModel.didSelectPhoto = {[weak self] photo in
@@ -54,7 +54,27 @@ fileprivate extension HomeViewController {
             self?.setupSearchView()
         }
         
-        viewModel.getSearchList()
+        viewModel.fetchSearchList()
+    }
+    
+    func handleLoadingState() {
+        switch viewModel.apiCaller.state {
+        case .loading:
+            loaderIndicator = showLoading(view: collectionView)
+        case .populated:
+            removeLoading(loaderIndicator, from: collectionView)
+            notifyDataFetched()
+            loaderIndicator = nil
+        case .empty, .error:
+            removeLoading(loaderIndicator, from: collectionView)
+            loaderIndicator = nil
+        }
+    }
+    
+    func notifyDataFetched() {
+        refreshControl.endRefreshing()
+        collectionView.isHidden = false
+        collectionView.reloadData()
     }
     
     func setupView() {
@@ -83,7 +103,6 @@ fileprivate extension HomeViewController {
     }
     
     func setupSearchView() {
-        
         cachedTableView.reloadData()
         if viewModel.cachedSearchArray.isEmpty {
             searchView.isHidden = true
@@ -108,12 +127,12 @@ fileprivate extension HomeViewController {
     }
     
     @objc func reload() {
-        viewModel.getSearchList()
+        viewModel.fetchSearchList()
     }
     
     func showDetails(photo: Photo) {
         let details = loadViewFromStoryboard(viewControllerType: DetailsViewController.self)
-        details.selectedPhoto = photo
+        details.viewModel = DetailsViewModel(selectedPhoto: photo)
         navigationController?.pushViewController(details, animated: true)
     }
 }
@@ -127,7 +146,7 @@ extension HomeViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let _ = cell as? ActivityIndicatorCell {
-            viewModel.getSearchList()
+            viewModel.fetchSearchList()
         }
     }
 }
@@ -136,7 +155,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = viewModel.getPhotosCount()
-        if count == 0 {
+        if count == 0 && loaderIndicator == nil {
             collectionView.setEmptyView(with: #imageLiteral(resourceName: "notfound"), title: "Nothing Found")
         } else if viewModel.hasMoreItems && !viewModel.isSearch {
             count += 1
@@ -226,3 +245,7 @@ extension HomeViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension HomeViewController: LoadingProtocol {}
+
+extension HomeViewController: AlertProtocol {}

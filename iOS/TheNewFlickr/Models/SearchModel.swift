@@ -30,4 +30,12 @@ struct Photo: Codable {
     let farm: Int?
     let title: String?
     let ispublic, isfriend, isfamily: Int?
+    
+    func getImageUrl() -> String {
+        guard let serverId = server,
+                let id = id,
+                let secret = secret
+          else { return ""}
+          return APIInfo.imageURL + serverId + "/\(id)_\(secret).jpg"
+    }
 }

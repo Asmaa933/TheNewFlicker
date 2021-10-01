@@ -7,20 +7,36 @@
 
 import Foundation
 
-class HomeViewModel: BaseViewModel {
+protocol HomeViewModelProtocol {
     
-    private var photosArray = [Photo]() {
-        didSet {
-            reloadCollectionView?()
-        }
-    }
+    var apiCaller: ApiCallerProtocol { get }
+    var cachedSearchArray: [CachedSearch] { get }
+    var didSelectPhoto: ((Photo) -> ())? { get set }
+    var reloadTableView: (() -> ())? { get set }
+    var isSearch: Bool { set get }
+    var hasMoreItems: Bool { set get }
     
-    private var searchArray = [Photo]() {
-        didSet {
-            reloadCollectionView?()
-        }
-    }
+    func fetchSearchList()
+    func searchInArray(searchText: String)
+    func getPhotosCount() -> Int
+    func getPhoto(at index: Int) -> Photo
+    func didSelectPhoto(at index: Int)
+    func getCachedSearch()
+    func saveSearchResult(searchText: String)
+    func removeSearchHistory()
+    func removeSearch(at index: Int)
+}
+
+class HomeViewModel {
     
+    private(set) lazy var apiCaller: ApiCallerProtocol = ApiCaller()
+    private let api = ApiHandler()
+    
+    var didSelectPhoto: ((Photo) -> ())?
+    var reloadTableView: (() -> ())?
+    
+    private var photosArray = [Photo]()
+    private var searchArray = [Photo]()
     private(set) var cachedSearchArray = [CachedSearch]() {
         didSet {
             cachedSearchArray = cachedSearchArray.reversed()
@@ -28,9 +44,10 @@ class HomeViewModel: BaseViewModel {
         }
     }
     
-    private(set) var hasMoreItems = false
+    var isSearch = false
+    var hasMoreItems = false
     private var page: Int = 1
-    private var totalPages:Int = 1 {
+    private var totalPages: Int = 1 {
         didSet {
             if totalPages > page {
                 page += 1
@@ -40,30 +57,28 @@ class HomeViewModel: BaseViewModel {
             }
         }
     }
+}
+
+extension HomeViewModel: HomeViewModelProtocol {
     
-    var isSearch = false
-    var reloadCollectionView: (() -> ())?
-    var didSelectPhoto: ((Photo) -> ())?
-    var reloadTableView: (() -> ())?
-    
-    func getSearchList() {
-        startRequest(request: NetworkingApi.getSearchPhotos(page: page),
-                     mappingClass: SearchModel.self,
-                     successCompletion: {[weak self] response in
-                        guard let self = self else { return }
-                        self.photosArray.append(contentsOf: response?.photos?.photo ?? [])
-                        self.page = response?.photos?.page ?? 1
-                        self.totalPages = response?.photos?.pages ?? 1
-                     }, showLoading: page == 1 )
+    func fetchSearchList() {
+        apiCaller.startRequest(api: api , request: NetworkingApi.getSearchPhotos(page: page),
+                               mappingClass: SearchModel.self,
+                               successCompletion: {[weak self] response in
+                                guard let self = self else { return }
+                                self.photosArray.append(contentsOf: response?.photos?.photo ?? [])
+                                self.page = response?.photos?.page ?? 1
+                                self.totalPages = response?.photos?.pages ?? 1
+                               }, showLoading: page == 1 )
     }
     
     func searchInArray(searchText: String) {
         searchArray = [Photo]()
-        if (searchText.isEmpty){
+        if (searchText.isEmpty) {
             isSearch = false
         }else{
             isSearch = true
-            searchArray = photosArray.filter {$0.title?.contains(searchText) ?? false}
+            searchArray = photosArray.filter { $0.title?.contains(searchText) ?? false }
         }
     }
     
