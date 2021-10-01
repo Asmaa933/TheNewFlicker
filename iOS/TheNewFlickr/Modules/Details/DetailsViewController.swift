@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsViewController: BaseViewController {
+class DetailsViewController: UIViewController {
 
     // 0 creator 1 title
     @IBOutlet private var labelsArray: [UILabel]!
@@ -16,8 +16,8 @@ class DetailsViewController: BaseViewController {
     @IBOutlet private weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     
-    private let viewModel = DetailsViewModel()
-    var selectedPhoto: Photo?
+    private var loaderIndicator: UIActivityIndicatorView?
+    var viewModel: DetailsViewModelProtocol = DetailsViewModel(selectedPhoto: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +34,10 @@ class DetailsViewController: BaseViewController {
 fileprivate extension DetailsViewController {
     
     func setupViewModel() {
-        setupViewModel(viewModel: viewModel)
         
+        viewModel.apiCaller.updateLoadingStatus = {[weak self] in
+            self?.handleLoadingState()
+        }
         viewModel.updateDropDown = {[weak self]  in
             self?.setupDropDown()
         }
@@ -43,15 +45,27 @@ fileprivate extension DetailsViewController {
         viewModel.reloadPhoto = {[weak self] index in
             self?.setupPhotoSize(at: index)
         }
-        viewModel.getPhotoDetails(photoId: selectedPhoto?.id ?? "")
+        viewModel.getPhotoDetails(photoId: viewModel.selectedPhoto?.id ?? "")
+    }
+    
+    func handleLoadingState() {
+        switch viewModel.apiCaller.state {
+        case .loading:
+            loaderIndicator = showLoading(view: dropDown)
+        case .populated:
+            removeLoading(loaderIndicator, from: dropDown)
+            setupDropDown()
+            loaderIndicator = nil
+        case .empty, .error:
+            removeLoading(loaderIndicator, from: dropDown)
+            loaderIndicator = nil
+        }
     }
     
     func setupView() {
-        labelsArray[0].text = selectedPhoto?.owner
-        labelsArray[1].text = selectedPhoto?.title
-        let imageUrl = APIInfo.imageURL + (selectedPhoto?.server ?? "") + "/\(selectedPhoto?.id ?? "")_\(selectedPhoto?.secret ?? "").jpg"
-        photoImageView.sd_setImage(with: URL(string: imageUrl),
-                                placeholderImage: #imageLiteral(resourceName: "placeHolder"))
+        labelsArray[0].text = viewModel.selectedPhoto?.owner
+        labelsArray[1].text = viewModel.selectedPhoto?.title
+        photoImageView.setImageWith(url: viewModel.selectedPhoto?.getImageUrl() ?? "")
         photoImageView.layer.cornerRadius = 15
     }
     
@@ -72,7 +86,10 @@ fileprivate extension DetailsViewController {
     func setupPhotoSize(at index: Int) {
         widthConstraint.constant = CGFloat(viewModel.photoSizes[index].width ?? 150)
         heightConstraint.constant = CGFloat(viewModel.photoSizes[index].height ?? 150)
-        photoImageView.sd_setImage(with: URL(string: viewModel.photoSizes[index].source ?? ""),
-                                   placeholderImage: #imageLiteral(resourceName: "placeHolder"))
+        photoImageView.setImageWith(url: viewModel.photoSizes[index].source ?? "")
     }
 }
+
+extension DetailsViewController: LoadingProtocol {}
+
+extension DetailsViewController: AlertProtocol {}
