@@ -31,7 +31,7 @@ class HomeViewModel {
     
     private(set) lazy var apiCaller: ApiCallerProtocol = ApiCaller()
     private let api = ApiHandler()
-
+    
     var didSelectPhoto: ((Photo) -> ())?
     var reloadTableView: (() -> ())?
     

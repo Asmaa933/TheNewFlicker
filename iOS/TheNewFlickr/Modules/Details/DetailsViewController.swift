@@ -17,10 +17,7 @@ class DetailsViewController: UIViewController {
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
     
     private var loaderIndicator: UIActivityIndicatorView?
-
-    private let viewModel = DetailsViewModel()
-    
-    var selectedPhoto: Photo?
+    var viewModel: DetailsViewModelProtocol = DetailsViewModel(selectedPhoto: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +45,7 @@ fileprivate extension DetailsViewController {
         viewModel.reloadPhoto = {[weak self] index in
             self?.setupPhotoSize(at: index)
         }
-        viewModel.getPhotoDetails(photoId: selectedPhoto?.id ?? "")
+        viewModel.getPhotoDetails(photoId: viewModel.selectedPhoto?.id ?? "")
     }
     
     func handleLoadingState() {
@@ -66,9 +63,9 @@ fileprivate extension DetailsViewController {
     }
     
     func setupView() {
-        labelsArray[0].text = selectedPhoto?.owner
-        labelsArray[1].text = selectedPhoto?.title
-        photoImageView.setImageWith(url: selectedPhoto?.getImageUrl() ?? "")
+        labelsArray[0].text = viewModel.selectedPhoto?.owner
+        labelsArray[1].text = viewModel.selectedPhoto?.title
+        photoImageView.setImageWith(url: viewModel.selectedPhoto?.getImageUrl() ?? "")
         photoImageView.layer.cornerRadius = 15
     }
     

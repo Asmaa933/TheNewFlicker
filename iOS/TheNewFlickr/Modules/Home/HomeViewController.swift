@@ -103,7 +103,6 @@ fileprivate extension HomeViewController {
     }
     
     func setupSearchView() {
-        
         cachedTableView.reloadData()
         if viewModel.cachedSearchArray.isEmpty {
             searchView.isHidden = true
@@ -133,7 +132,7 @@ fileprivate extension HomeViewController {
     
     func showDetails(photo: Photo) {
         let details = loadViewFromStoryboard(viewControllerType: DetailsViewController.self)
-        details.selectedPhoto = photo
+        details.viewModel = DetailsViewModel(selectedPhoto: photo)
         navigationController?.pushViewController(details, animated: true)
     }
 }
