@@ -14,17 +14,15 @@ class HomeCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        searchPhoto.layer.cornerRadius = 15
+        cornerForImage()
     }
     
     func configureCell(photo: Photo) {
-        guard let serverId = photo.server,
-              let id = photo.id,
-              let secret = photo.secret
-        else { return }
-        let imageUrl = APIInfo.imageURL + serverId + "/\(id)_\(secret).jpg"
-        searchPhoto.sd_setImage(with: URL(string: imageUrl),
-                                placeholderImage: #imageLiteral(resourceName: "placeHolder"))
+        searchPhoto.setImageWith(url: photo.getImageUrl())
+    }
+    
+    private func cornerForImage() {
+        searchPhoto.layer.cornerRadius = 15
     }
     
 }

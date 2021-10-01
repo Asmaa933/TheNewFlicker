@@ -68,9 +68,7 @@ fileprivate extension DetailsViewController {
     func setupView() {
         labelsArray[0].text = selectedPhoto?.owner
         labelsArray[1].text = selectedPhoto?.title
-        let imageUrl = APIInfo.imageURL + (selectedPhoto?.server ?? "") + "/\(selectedPhoto?.id ?? "")_\(selectedPhoto?.secret ?? "").jpg"
-        photoImageView.sd_setImage(with: URL(string: imageUrl),
-                                placeholderImage: #imageLiteral(resourceName: "placeHolder"))
+        photoImageView.setImageWith(url: selectedPhoto?.getImageUrl() ?? "")
         photoImageView.layer.cornerRadius = 15
     }
     
@@ -91,8 +89,7 @@ fileprivate extension DetailsViewController {
     func setupPhotoSize(at index: Int) {
         widthConstraint.constant = CGFloat(viewModel.photoSizes[index].width ?? 150)
         heightConstraint.constant = CGFloat(viewModel.photoSizes[index].height ?? 150)
-        photoImageView.sd_setImage(with: URL(string: viewModel.photoSizes[index].source ?? ""),
-                                   placeholderImage: #imageLiteral(resourceName: "placeHolder"))
+        photoImageView.setImageWith(url: viewModel.photoSizes[index].source ?? "")
     }
 }
 
