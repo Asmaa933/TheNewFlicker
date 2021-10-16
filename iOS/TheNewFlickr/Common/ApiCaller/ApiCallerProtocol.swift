@@ -8,11 +8,11 @@
 import Foundation
 
 protocol ApiCallerProtocol: AnyObject {
-    
-    var updateLoadingStatus: (()->())? { get set }
-    var updateError: ((String)->())? { get set }
+
+    var updateLoadingStatus: (()->Void)? { get set }
+    var updateError: ((String)->Void)? { get set }
     var state: State { get set }
-    
+
     func startRequest<M: Codable>(api: ApiHandlerProtocol,
                                   request: Requestable,
                                   mappingClass: M.Type,

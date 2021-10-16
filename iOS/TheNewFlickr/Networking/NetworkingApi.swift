@@ -14,18 +14,18 @@ enum NetworkingApi {
 }
 
 extension NetworkingApi: Requestable {
-    
+
     var path: String {
         return APIInfo.url
     }
-    
+
     var method: HTTPMethod {
         switch self {
         default:
             return .get
         }
     }
-    
+
     var parameters: [String: Any] {
         switch self {
         case .getSearchPhotos(let page):
@@ -34,20 +34,19 @@ extension NetworkingApi: Requestable {
             return APIInfo.getSizesParams(photoId: photoId)
         }
     }
-    
+
     var encoding: ParameterEncoding {
         switch self {
         default:
             return URLEncoding.default
         }
     }
-    
+
     var headers: HTTPHeaders {
         switch self {
         default:
             return HTTPHeaders([])
         }
     }
-    
-    
+
 }

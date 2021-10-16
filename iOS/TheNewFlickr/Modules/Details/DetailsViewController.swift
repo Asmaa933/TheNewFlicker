@@ -15,39 +15,39 @@ class DetailsViewController: UIViewController {
     @IBOutlet private weak var dropDown: CustomDropDown!
     @IBOutlet private weak var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var widthConstraint: NSLayoutConstraint!
-    
+
     private var loaderIndicator: UIActivityIndicatorView?
     var viewModel: DetailsViewModelProtocol = DetailsViewModel(selectedPhoto: nil)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
         setupView()
     }
-    
+
     @IBAction private func closeAction(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }
-    
+
 }
 
 fileprivate extension DetailsViewController {
-    
+
     func setupViewModel() {
-        
+
         viewModel.apiCaller.updateLoadingStatus = {[weak self] in
             self?.handleLoadingState()
         }
         viewModel.updateDropDown = {[weak self]  in
             self?.setupDropDown()
         }
-        
+
         viewModel.reloadPhoto = {[weak self] index in
             self?.setupPhotoSize(at: index)
         }
         viewModel.getPhotoDetails(photoId: viewModel.selectedPhoto?.id ?? "")
     }
-    
+
     func handleLoadingState() {
         switch viewModel.apiCaller.state {
         case .loading:
@@ -61,14 +61,14 @@ fileprivate extension DetailsViewController {
             loaderIndicator = nil
         }
     }
-    
+
     func setupView() {
         labelsArray[0].text = viewModel.selectedPhoto?.owner
         labelsArray[1].text = viewModel.selectedPhoto?.title
         photoImageView.setImageWith(url: viewModel.selectedPhoto?.getImageUrl() ?? "")
         photoImageView.layer.cornerRadius = 15
     }
-    
+
     func setupDropDown() {
         dropDown.dropMenuItems = viewModel.dropDownItems
         dropDown.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openDropDown)))
@@ -78,11 +78,11 @@ fileprivate extension DetailsViewController {
             self?.viewModel.selectSize(at: index)
         }
     }
-    
+
     @objc func openDropDown() {
         dropDown.dropMenu.show()
     }
-    
+
     func setupPhotoSize(at index: Int) {
         widthConstraint.constant = CGFloat(viewModel.photoSizes[index].width ?? 150)
         heightConstraint.constant = CGFloat(viewModel.photoSizes[index].height ?? 150)

@@ -8,15 +8,15 @@
 import Foundation
 
 class ApiCaller: ApiCallerProtocol {
-  
-    var updateLoadingStatus: (() -> ())?
-    var updateError: ((String) -> ())?
+
+    var updateLoadingStatus: (() -> Void)?
+    var updateError: ((String) -> Void)?
     var state: State = .empty {
         didSet {
           updateLoadingStatus?()
         }
     }
-   
+
     func startRequest<M: Codable> (api: ApiHandlerProtocol,
                                    request: Requestable,
                                    mappingClass: M.Type,
@@ -25,7 +25,7 @@ class ApiCaller: ApiCallerProtocol {
         if showLoading {
             state = .loading
         }
-        
+
         api.fetchData(request: request, mappingClass: mappingClass).done {[weak self] success in
             self?.changeState(state: .populated)
             successCompletion(success)
@@ -34,9 +34,9 @@ class ApiCaller: ApiCallerProtocol {
             self?.updateError?((error as? ErrorHandler)?.rawValue ?? error.localizedDescription.description)
         }
     }
-    
+
     private func changeState(state: State) {
         self.state = state
     }
-    
+
 }

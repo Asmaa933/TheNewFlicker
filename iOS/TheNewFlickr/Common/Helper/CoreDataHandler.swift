@@ -8,16 +8,16 @@
 import UIKit
 import CoreData
 
-class CoreDataHandler{
-    
+class CoreDataHandler {
+
     static let shared = CoreDataHandler()
     private init() {}
-    
+
     func getCoreDataobject() -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }
-    
+
     func saveIntoCoreData(searchItem: CachedSearch) {
         let context = getCoreDataobject()
             do {
@@ -26,19 +26,18 @@ class CoreDataHandler{
                 print("error in saving")
             }
     }
-    
+
     func getDataFromCoreData() -> [CachedSearch]? {
         let context = getCoreDataobject()
         var cachedArray: [CachedSearch]?
-        do{
+        do {
             cachedArray = try context.fetch(CachedSearch.fetchRequest())
-        }
-        catch{
+        } catch {
             print("error in get data")
         }
         return cachedArray
     }
-    
+
     func clearCoreData() {
         let context = getCoreDataobject()
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "CachedSearch")
@@ -47,17 +46,16 @@ class CoreDataHandler{
             try context.execute(deleteRequest)
             try context.save()
         } catch {
-            print ("Error Clear Core Data")
+            print("Error Clear Core Data")
         }
     }
-    
+
     func deleteObjectFromCoreData (item: CachedSearch) -> [CachedSearch]? {
         let context = getCoreDataobject()
         context.delete(item)
-        do{
+        do {
             try context.save()
-        }
-        catch{
+        } catch {
             print("error in delete data")
         }
         return getDataFromCoreData()

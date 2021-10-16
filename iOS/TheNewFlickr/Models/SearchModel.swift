@@ -11,7 +11,7 @@ import Foundation
 struct SearchModel: Codable {
     let photos: Photos?
     let state: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case state = "stat"
         case photos
@@ -30,7 +30,7 @@ struct Photo: Codable {
     let farm: Int?
     let title: String?
     let ispublic, isfriend, isfamily: Int?
-    
+
     func getImageUrl() -> String {
         guard let serverId = server,
                 let id = id,

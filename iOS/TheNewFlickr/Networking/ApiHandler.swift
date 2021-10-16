@@ -35,11 +35,11 @@ class ApiHandler: ApiHandlerProtocol {
 }
 
 private extension ApiHandler {
-    
+
     func isNetworkConnected() -> Bool {
         return NetworkMonitor.shared.netOn
     }
-    
+
     func getRequestData(request: Requestable) -> DataRequest {
         let requestData = AF.request(request.path,
                                      method: request.method,
@@ -48,22 +48,22 @@ private extension ApiHandler {
                                      headers: request.headers)
         return requestData
     }
-    
+
     func handleResponse<T: Decodable> (response: AFDataResponse<Any>, mappingClass: T.Type) -> Swift.Result<T, Error> {
         switch response.result {
-        
-        case .success(_):
+
+        case .success:
             guard let jsonResponse = response.data else {
                 return .failure(ErrorHandler.generalError)
             }
             do {
                 let decodedObj = try JSONDecoder().decode(T.self, from: jsonResponse)
                 return .success(decodedObj)
-            } catch (let error){
+            } catch let error {
                 debugPrint("Error in decoding ** \n \(error.localizedDescription.description)")
                 return .failure(ErrorHandler.generalError)
             }
-            
+
         case .failure(let error):
             debugPrint(error.localizedDescription.description)
             return .failure(error)
