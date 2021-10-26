@@ -13,7 +13,7 @@ protocol LoadingProtocol {
 }
 
 extension LoadingProtocol {
-    
+
     func showLoading(view: UIView) -> UIActivityIndicatorView {
         view.isUserInteractionEnabled = false
         let activityIndicator = UIActivityIndicatorView(style: .large)

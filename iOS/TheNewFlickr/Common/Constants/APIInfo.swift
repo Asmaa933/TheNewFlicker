@@ -12,7 +12,7 @@ struct APIInfo {
     static let imageURL = "https://live.staticflickr.com/"
     static let key = "94b0a1ad9d4f1aebf9f2f2c006fb4c65"
     static let secret = "c21744829fca03e7"
-    
+
     static func getSearchParams(page: Int) -> [String: String] {
         return ["method": "flickr.photos.search",
                 "api_key": key,
@@ -22,7 +22,7 @@ struct APIInfo {
                 "page": page.description
         ]
     }
-    
+
     static func getSizesParams(photoId: String) -> [String: String] {
         return ["method": "flickr.photos.getSizes",
                 "api_key": key,

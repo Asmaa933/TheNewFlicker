@@ -8,10 +8,10 @@
 import DropDown
 
 class CustomDropDown: UITextField {
-    
+
     let dropMenu = DropDown()
     private let label = UILabel()
-    
+
     public var dropMenuItems: [String]? {
         get {
             return dropMenu.dataSource
@@ -20,27 +20,25 @@ class CustomDropDown: UITextField {
             dropMenu.dataSource = newValue ?? []
         }
     }
-    
+
     override func awakeFromNib() {
         superview?.awakeFromNib()
         setupDropDown()
         setupLabel()
     }
-    
+
     func showLabel() {
         label.isHidden = false
     }
 }
 
 fileprivate extension CustomDropDown {
-    
+
     func setupDropDown() {
-        dropMenu.bottomOffset = CGPoint(x: 0, y:(self.bounds.height))
+        dropMenu.bottomOffset = CGPoint(x: 0, y: (self.bounds.height))
         dropMenu.anchorView = self.plainView
     }
-    
-    
-    
+
     func setupLabel() {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = placeholder
